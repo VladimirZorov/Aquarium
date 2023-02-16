@@ -15,16 +15,24 @@ public class DecorationRepository implements Repository{
 
     @Override
     public void add(Decoration decoration) {
-
+        decorations.add(decoration);
     }
 
     @Override
     public boolean remove(Decoration decoration) {
+        for (Decoration decoration1 : decorations) {
+            if (decoration1.equals(decoration)) {
+                decorations.remove(decoration1);
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public Decoration findByType(String type) {
-        return null;
+        return decorations.stream()
+                .filter(decoration -> decoration.getClass().getSimpleName().equals(type))
+                .findFirst().orElse(null);
     }
 }
